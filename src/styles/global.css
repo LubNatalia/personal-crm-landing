@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    @apply bg-lavender-100 font-sans text-ink antialiased;
+    /* As in the design references: labels use the font's natural line height */
+    line-height: normal;
+    -webkit-text-size-adjust: 100%;
+  }
+}

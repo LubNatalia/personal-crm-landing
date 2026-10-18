@@ -1,0 +1,53 @@
+---
+// Block 2 of the landing: the visitor recognizes their own problem
+import Icon, { type IconName } from "./Icon.astro";
+import PhoneContacts from "./PhoneContacts.astro";
+
+const pains: { icon: IconName; text: string }[] = [
+  {
+    icon: "question",
+    text: "Познакомились на конференции, а через месяц не помните, кто это и о чём говорили.",
+  },
+  {
+    icon: "chat-line",
+    text: "Пообещали помочь или договорились созвониться — и забыли: договорённость утонула в переписке.",
+  },
+  {
+    icon: "search",
+    text: "Чтобы найти телефон человека, листаете чаты, почту и старые заметки.",
+  },
+];
+---
+
+<section
+  aria-labelledby="problem-title"
+  class="rounded-t-section bg-white px-gutter py-section lg:rounded-t-section-lg lg:px-gutter-lg lg:py-section-lg"
+>
+  <div class="mx-auto flex max-w-page flex-col gap-7 lg:gap-14">
+    <div class="flex flex-col items-center gap-3.5 text-center lg:gap-4">
+      <h2 id="problem-title" class="text-h2 font-extrabold lg:text-h2-lg">Знакомо?</h2>
+      <p class="text-17 leading-text text-ink-soft lg:max-w-155 lg:text-20">
+        Людей вокруг много, а помнить всё о каждом невозможно. Через полгода от знакомства остаётся
+        только имя в телефоне.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-7 lg:flex-row lg:gap-8">
+      <!-- Basis 408px = 360px of content + 48px of padding, as in the reference -->
+      <PhoneContacts class="lg:min-w-0 lg:flex-[1_1_408px]" />
+
+      <ul class="flex flex-col gap-3 lg:min-w-0 lg:flex-[1.4_1_420px] lg:justify-center lg:gap-4">
+        {
+          pains.map((pain) => (
+            <li class="flex items-start gap-3.5 rounded-tile bg-coral-50 p-4.5 lg:gap-4.5 lg:rounded-card lg:p-6">
+              <span class="flex size-10 flex-none items-center justify-center rounded-icon bg-coral-100 text-coral-700 lg:size-12 lg:rounded-icon-lg">
+                <Icon name={pain.icon} class="size-5 lg:size-5.5" />
+              </span>
+              <p class="text-16 leading-text lg:pt-2.5 lg:text-18">{pain.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

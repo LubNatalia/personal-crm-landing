@@ -1,0 +1,24 @@
+---
+// Brand: person icon + "Личная CRM". Large in the header, small in the footer
+import Icon from "./Icon.astro";
+
+interface Props {
+  size?: "header" | "footer";
+}
+
+const { size = "header" } = Astro.props;
+---
+
+{
+  size === "header" ? (
+    <div class="flex items-center gap-2 lg:gap-2.5">
+      <Icon name="person" strokeWidth={2.2} class="size-5.5 text-accent lg:size-6.5" />
+      <span class="text-16 font-extrabold lg:text-18">Личная CRM</span>
+    </div>
+  ) : (
+    <div class="flex items-center gap-2">
+      <Icon name="person" strokeWidth={2.2} class="size-4.5 text-accent lg:size-5" />
+      <span class="text-14 font-extrabold lg:text-15">Личная CRM</span>
+    </div>
+  )
+}

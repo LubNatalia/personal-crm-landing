@@ -1,0 +1,26 @@
+---
+// Landing structure ("golden standard"): hero → problem → solution → benefits → call to action
+import Benefits from "../components/Benefits.astro";
+import FinalCta from "../components/FinalCta.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Problem from "../components/Problem.astro";
+import Solution from "../components/Solution.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Личная CRM — помните каждого, с кем знакомы"
+  description="Кто это, откуда знакомы, телефон, почта и о чём договорились — в одной карточке на каждого человека. Нашли по имени, открыли, вспомнили."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Problem />
+    <Solution />
+    <Benefits />
+    <FinalCta />
+  </main>
+  <Footer />
+</Base>

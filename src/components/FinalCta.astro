@@ -1,0 +1,33 @@
+---
+// Block 5 of the landing: the same call to action once more
+import CtaButton from "./CtaButton.astro";
+import Icon from "./Icon.astro";
+
+// Avatar stack: Anna, Oleg and the "add" circle. Outer size includes the 3px ring
+const circle =
+  "flex size-14.5 items-center justify-center rounded-full border-3 border-lavender-100 text-18 font-extrabold lg:size-16.5 lg:text-20";
+---
+
+<section
+  aria-labelledby="final-title"
+  class="px-gutter pt-section pb-10 text-center lg:px-gutter-lg lg:pt-30 lg:pb-24"
+>
+  <div class="mx-auto flex max-w-final flex-col gap-6 lg:items-center lg:gap-7">
+    <div aria-hidden="true" class="flex justify-center">
+      <span class:list={[circle, "bg-coral-100 text-coral-700"]}>АП</span>
+      <span class:list={[circle, "-ml-3 bg-lavender-200 text-ink lg:-ml-3.5"]}>О</span>
+      <span class:list={[circle, "-ml-3 bg-accent text-white lg:-ml-3.5"]}>
+        <Icon name="plus" strokeWidth={2.4} class="size-5.5 lg:size-6" />
+      </span>
+    </div>
+    <div class="flex flex-col gap-3.5 lg:gap-4">
+      <h2 id="final-title" class="text-h2-final font-extrabold lg:text-h2-final-lg">
+        Начните с одного человека
+      </h2>
+      <p class="text-17 leading-text text-ink-soft lg:text-20">
+        Добавьте того, с кем говорили сегодня, — это займёт минуту.
+      </p>
+    </div>
+    <CtaButton note="Работает в браузере, устанавливать ничего не нужно" />
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+// The page's single target action: go to the app. Same button with a note under it in every place.
+// Full width on phones, sized by its text on desktop.
+import { APP_URL } from "../config";
+
+interface Props {
+  note: string;
+  align?: "start" | "center";
+}
+
+const { note, align = "center" } = Astro.props;
+---
+
+<div class:list={["flex flex-col gap-3", align === "start" ? "lg:items-start" : "lg:items-center"]}>
+  <a
+    href={APP_URL}
+    class="flex h-14.5 items-center justify-center rounded-btn bg-accent text-17 font-bold text-white shadow-cta transition-colors hover:bg-accent-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent lg:h-15 lg:px-10 lg:text-18"
+  >
+    Открыть приложение
+  </a>
+  <p class="text-14 text-ink-muted lg:text-15">{note}</p>
+</div>

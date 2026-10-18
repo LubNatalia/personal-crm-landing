@@ -1,0 +1,53 @@
+---
+// Block 3 of the landing: how the product solves the problem (the app's main scenario)
+import Icon from "./Icon.astro";
+import StepCard from "./StepCard.astro";
+---
+
+<section aria-labelledby="solution-title" class="px-gutter py-section lg:px-gutter-lg lg:py-section-lg">
+  <div class="mx-auto flex max-w-page flex-col gap-7 lg:gap-14">
+    <div class="flex flex-col items-center gap-3.5 text-center lg:gap-4">
+      <h2 id="solution-title" class="text-h2 font-extrabold lg:text-h2-lg">
+        Одна карточка на каждого человека
+      </h2>
+      <p class="text-17 leading-text text-ink-soft lg:max-w-160 lg:text-20">
+        Это не CRM для продаж: никаких воронок и сделок. Только то, что помогает помнить людей, — и
+        всё в одном месте.
+      </p>
+    </div>
+
+    <ol class="flex flex-col gap-3 lg:grid lg:grid-cols-3 lg:gap-6">
+      <StepCard
+        number={1}
+        title="Добавьте человека"
+        text="Имя, кто это, откуда знакомы, телефон и почта. Обязательно только имя — остальное допишете потом."
+      />
+      <StepCard
+        number={2}
+        title="Найдите по имени"
+        text="Введите имя в поиске и откройте карточку — там всё, что вы записали о человеке."
+      >
+        <div
+          aria-hidden="true"
+          class="flex items-center gap-2.5 rounded-field bg-lavender-50 px-3.5 py-3 text-15 lg:mt-auto lg:px-4 lg:py-3.25 lg:text-16"
+        >
+          <Icon name="search" class="size-4.5 text-ink-muted" />
+          <span>Ан<span class="text-ink-muted">на Петрова</span></span>
+        </div>
+      </StepCard>
+      <StepCard
+        number={3}
+        title="Допишите заметку"
+        text="Поговорили — запишите, о чём договорились. В следующий раз продолжите с того же места."
+      />
+    </ol>
+
+    <p
+      class="flex items-start gap-3 rounded-tile bg-lavender-200 px-4.5 py-4 text-15 leading-text lg:max-w-202 lg:items-center lg:gap-3.5 lg:self-center lg:rounded-card lg:px-6 lg:py-4.5 lg:text-17"
+    >
+      <Icon name="cloud" class="mt-0.5 size-5.5 lg:mt-0 lg:size-6" />
+      Контакты хранятся на сервере, а не в браузере: открываете с телефона или компьютера — везде
+      одни и те же.
+    </p>
+  </div>
+</section>

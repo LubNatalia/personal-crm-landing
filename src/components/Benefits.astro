@@ -1,0 +1,54 @@
+---
+// Block 4 of the landing: what changes for the visitor
+import Icon, { type IconName } from "./Icon.astro";
+
+const benefits: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: "chat",
+    title: "Помните, о чём говорили",
+    text: "Перед встречей или звонком открываете карточку — и знаете, на чём остановились в прошлый раз.",
+  },
+  {
+    icon: "check",
+    title: "Держите слово",
+    text: "Договорённости записаны, а не держатся в голове. Обещания не теряются между делами.",
+  },
+  {
+    icon: "bolt",
+    title: "Находите за секунды",
+    text: "Телефон и почта — в карточке человека. Не нужно листать чаты и вспоминать, где это было.",
+  },
+  {
+    icon: "people",
+    title: "Все свои люди — в одном списке",
+    text: "Коллеги, соседи, знакомые с конференций. С телефона и с компьютера.",
+  },
+];
+---
+
+<section aria-labelledby="benefits-title" class="px-2 lg:px-gutter-lg">
+  <div
+    class="mx-auto flex max-w-page flex-col gap-7 rounded-section bg-white px-3 py-12 lg:gap-12 lg:rounded-section-lg lg:px-12 lg:py-22"
+  >
+    <div class="flex flex-col items-center gap-3 px-2 text-center lg:gap-3.5 lg:px-0">
+      <h2 id="benefits-title" class="text-h2 font-extrabold lg:text-h2-lg">Что изменится</h2>
+      <p class="text-18 leading-note font-semibold text-accent lg:text-22">
+        Люди чувствуют, когда их помнят.
+      </p>
+    </div>
+
+    <ul class="flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-5">
+      {
+        benefits.map((benefit) => (
+          <li class="flex flex-col gap-2 rounded-tile bg-lavender-50 p-4.5 lg:gap-3 lg:rounded-card lg:p-7">
+            <div class="flex items-center gap-2.5 lg:gap-3">
+              <Icon name={benefit.icon} class="size-5.5 text-accent lg:size-6.5" />
+              <h3 class="text-18 font-extrabold lg:text-22">{benefit.title}</h3>
+            </div>
+            <p class="text-15 leading-text text-ink-soft lg:text-17 lg:leading-text-lg">{benefit.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

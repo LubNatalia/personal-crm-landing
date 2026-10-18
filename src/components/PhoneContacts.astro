@@ -1,0 +1,45 @@
+---
+// Illustration for the problem block: a typical phone address book with vague names
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const contacts = [
+  { initial: "А", name: "Андрей Сосед 2" },
+  { initial: "М", name: "Мария конференция" },
+  { initial: "О", name: "Олег", unknown: true },
+  { initial: "С", name: "Саша Дизайн" },
+  { initial: "Т", name: "Таня от Иры" },
+];
+---
+
+<div
+  role="img"
+  aria-label="Контакты в телефоне: Андрей Сосед 2, Мария конференция, Олег ???, Саша Дизайн, Таня от Иры"
+  class:list={[
+    "flex flex-col rounded-card bg-lavender-50 px-4 pt-4 pb-2 lg:rounded-card-lg lg:px-6 lg:pt-6 lg:pb-3",
+    className,
+  ]}
+>
+  <p class="px-1 pb-2.5 text-13 font-bold text-ink-muted lg:pb-3 lg:text-14">Контакты в телефоне</p>
+  {
+    contacts.map((contact) => (
+      <div class="flex items-center gap-3 border-t border-lavender-line px-1 py-2.5 lg:gap-3.5 lg:py-3.25">
+        <span
+          class:list={[
+            "flex size-9 items-center justify-center rounded-full text-14 font-bold lg:size-10 lg:text-15",
+            contact.unknown ? "bg-coral-100 text-coral-700" : "bg-lavender-avatar text-ink-muted",
+          ]}
+        >
+          {contact.initial}
+        </span>
+        <span class="text-16 font-semibold lg:text-17">
+          {contact.name}
+          {contact.unknown && <span class="text-coral-700"> ???</span>}
+        </span>
+      </div>
+    ))
+  }
+</div>

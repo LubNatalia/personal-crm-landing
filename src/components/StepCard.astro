@@ -1,0 +1,24 @@
+---
+// One step of the main scenario: number, title, text and an optional illustration (slot)
+interface Props {
+  number: number;
+  title: string;
+  text: string;
+}
+
+const { number, title, text } = Astro.props;
+---
+
+<li
+  class="flex flex-col gap-2.5 rounded-card bg-white p-5 shadow-step lg:gap-3.5 lg:rounded-card-lg lg:px-7 lg:py-8 lg:shadow-step-lg"
+>
+  <span
+    aria-hidden="true"
+    class="flex size-9 items-center justify-center rounded-full bg-accent text-16 font-extrabold text-white lg:size-11 lg:text-18"
+  >
+    {number}
+  </span>
+  <h3 class="text-20 font-extrabold tracking-h3 lg:text-24">{title}</h3>
+  <p class="text-16 leading-text text-ink-soft lg:text-17 lg:leading-text-lg">{text}</p>
+  <slot />
+</li>
