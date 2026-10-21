@@ -1,0 +1,67 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time: a newer push waits until the running one finishes
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://lyna.tech
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      # pnpm version comes from "packageManager" in package.json
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # The server key only allows rsync into the landing folder (rrsync),
+      # so the destination path is relative to that folder
+      - name: Upload dist/ to the server
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          ssh_dir=$(mktemp -d)
+          trap 'rm -rf "$ssh_dir"' EXIT
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$ssh_dir/key"
+          chmod 600 "$ssh_dir/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          rsync --recursive --links --times --perms --chmod=D755,F644 \
+            --compress --delete-after --delay-updates --itemize-changes \
+            -e "ssh -i $ssh_dir/key -o IdentitiesOnly=yes -o UserKnownHostsFile=$ssh_dir/known_hosts -o StrictHostKeyChecking=yes -o BatchMode=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:"
+
+      - name: Smoke test - the home page answers 200 and is this build
+        run: |
+          status=$(curl --silent --output served.html --write-out '%{http_code}' --max-time 20 "$SITE_URL/")
+          if [ "$status" != 200 ]; then
+            echo "::error::$SITE_URL/ answered $status"
+            exit 1
+          fi
+          if ! cmp --silent served.html dist/index.html; then
+            echo "::error::$SITE_URL/ answered 200 but serves a different index.html than this build"
+            exit 1
+          fi
+          echo "$SITE_URL/ answered 200 and serves this build"
