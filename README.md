@@ -79,3 +79,39 @@
 ### Ключ выкатки
 
 В GitHub (Settings → Secrets and variables → Actions): секрет `DEPLOY_SSH_KEY` и переменные `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_KNOWN_HOSTS`. На сервере этот ключ может только загружать файлы в `/var/www/lyna.tech` — ни команд, ни других папок.
+
+## Настройки nginx
+
+Копия настроек сайта с сервера — `deploy/nginx/lyna.tech.conf` (на сервере это `/etc/nginx/sites-available/lyna.tech`). Она лежит в репозитории для истории: выкатка её **не** ставит, менять на сервере — вручную.
+
+Файл общий с приложением: в нём же блок `app.lyna.tech`. Лендингу принадлежит только блок «Landing», остальное не трогаем.
+
+### Заголовки безопасности
+
+Браузер получает их с каждым ответом лендинга, в том числе со страницей 404:
+
+| Заголовок | Что даёт |
+| --- | --- |
+| `Strict-Transport-Security` | браузер год открывает сайт только по HTTPS |
+| `Content-Security-Policy` | страница загружает файлы только с самого сайта; встроенные скрипты и стили разрешены |
+| `X-Frame-Options`, `frame-ancestors` | чужой сайт не может встроить лендинг в рамку |
+| `Referrer-Policy` | другие сайты видят только «пришли с lyna.tech», без полного адреса |
+| `X-Content-Type-Options` | браузер не угадывает тип файла |
+| `Permissions-Policy` | камера, микрофон, геолокация и т. п. странице запрещены |
+
+Версию nginx сервер не показывает (`server_tokens off` в общем `/etc/nginx/nginx.conf`).
+
+Если на страницу добавят что-то со стороннего сайта (шрифт, счётчик, видео) — браузер это заблокирует. Тогда нужно дописать адрес в `Content-Security-Policy`.
+
+### Как поменять настройки
+
+1. Возьмите текущий файл с сервера (вдруг там поменяли часть приложения) и перенесите в него правку.
+2. Сохраните копию на сервере и поставьте новый файл:
+
+   ```
+   sudo cp -p /etc/nginx/sites-available/lyna.tech ~/nginx-backups/lyna.tech.$(date +%F)
+   sudo install -o root -g root -m 644 lyna.tech.conf /etc/nginx/sites-available/lyna.tech
+   ```
+
+3. Проверьте и примените: `sudo nginx -t && sudo systemctl reload nginx`. Если `nginx -t` ругается — верните копию из `~/nginx-backups`.
+4. Положите тот же файл в `deploy/nginx/lyna.tech.conf` и закоммитьте.
