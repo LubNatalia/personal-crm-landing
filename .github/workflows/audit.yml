@@ -1,0 +1,32 @@
+name: Audit
+
+# Known vulnerabilities in dependencies. Runs separately from Deploy and never
+# blocks it: the dependencies only run at build time, the site itself is static
+# files, and a new advisory must not stop an urgent fix from going out.
+# A red run here means: update the package and push.
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every Monday 06:00 UTC: new advisories appear without any push
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      # pnpm version comes from "packageManager" in package.json
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # Reads pnpm-lock.yaml, no install needed
+      - run: pnpm audit --prod
