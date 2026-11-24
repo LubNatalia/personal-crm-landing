@@ -15,24 +15,24 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  // Manrope is self-hosted: variable font files live in src/assets/fonts, no external requests
+  // Roboto is self-hosted: variable font files live in src/assets/fonts, no external requests
   fonts: [
     {
       provider: fontProviders.local(),
-      name: "Manrope",
-      cssVariable: "--font-manrope",
+      name: "Roboto",
+      cssVariable: "--font-sans-loaded",
       fallbacks: ["system-ui", "sans-serif"],
       options: {
         variants: [
           {
-            src: [`${FONTS_DIR}/manrope-cyrillic-wght-normal.woff2`],
-            weight: "200 800",
+            src: [`${FONTS_DIR}/roboto-cyrillic-wght-normal.woff2`],
+            weight: "100 900",
             style: "normal",
             unicodeRange: [CYRILLIC],
           },
           {
-            src: [`${FONTS_DIR}/manrope-latin-wght-normal.woff2`],
-            weight: "200 800",
+            src: [`${FONTS_DIR}/roboto-latin-wght-normal.woff2`],
+            weight: "100 900",
             style: "normal",
             unicodeRange: [LATIN],
           },
