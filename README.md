@@ -51,7 +51,7 @@
 - Адрес приложения, куда ведут все кнопки, — `src/config.ts` (сейчас `https://app.lyna.tech`)
 - Кнопка «Открыть приложение» с подписью под ней одна на всю страницу — `src/components/CtaButton.astro`
 - Цвета, шрифты, размеры текста и отступы — только в `src/styles/tokens.css`
-- Шрифт Manrope (лицензия SIL Open Font License) лежит в `src/assets/fonts` и подключён в `astro.config.mjs`: страница не обращается к сторонним сервисам
+- Шрифт Roboto (лицензия SIL Open Font License) лежит в `src/assets/fonts` и подключён в `astro.config.mjs`: страница не обращается к сторонним сервисам
 
 ## Макет
 

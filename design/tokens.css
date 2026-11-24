@@ -1,28 +1,34 @@
-/* Личная CRM — токены дизайна (вариант C «Лаванда»), Tailwind CSS 4.
+/* Личная CRM — токены дизайна, Tailwind CSS 4.
+   Ноябрь 2026: цвета и шрифт заменены по выбранному образцу (сиреневый акцент,
+   почти белый фон, Roboto); код — src/styles/tokens.css, значения совпадают.
    Подключение: в src/styles/global.css
      @import "tailwindcss";
      @import "./tokens.css";
-   Шрифт: npm i @fontsource-variable/manrope и import в Base.astro. */
+   Шрифт: Roboto, файлы в src/assets/fonts, подключение в astro.config.mjs. */
 
 @theme {
   /* Шрифт */
-  --font-sans: "Manrope Variable", "Manrope", system-ui, sans-serif;
+  --font-sans: "Roboto", system-ui, sans-serif;
 
   /* Фон и текст */
-  --color-lavender-50: #F7F6FD;   /* surface-soft: плитки внутри белых блоков */
-  --color-lavender-100: #EEEBFA;  /* основной фон страницы, чипы */
-  --color-lavender-200: #D9D2F7;  /* подложка «стопки», плашка хранения, линия подвала */
-  --color-lavender-line: #E4E0F5; /* разделители строк в списке контактов */
-  --color-lavender-avatar: #E2DFEE; /* нейтральные аватары */
+  --color-page: #FDFBFF;          /* основной фон страницы */
+  --color-lavender-50: #F9F6FF;   /* surface-soft: плитки внутри белых блоков */
+  --color-lavender-100: #F3EAFD;  /* чипы, плашки */
+  --color-lavender-200: #E7D7FF;  /* подложка «стопки», плашка хранения, линия подвала */
+  --color-lavender-line: #EEE6FA; /* разделители строк в списке контактов */
+  --color-lavender-avatar: #E7D7FF; /* нейтральные аватары */
 
-  --color-ink: #1E1838;           /* заголовки, основной текст */
-  --color-ink-soft: #433C5E;      /* лид-абзацы и текст карточек */
-  --color-ink-muted: #575073;     /* подписи, метки полей */
-  --color-ink-chip: #4A4366;      /* текст белой плашки над H1 */
+  --color-ink: #261A38;           /* заголовки, основной текст */
+  --color-ink-soft: #4A4060;      /* лид-абзацы и текст карточек */
+  --color-ink-muted: #6E6878;     /* подписи, метки полей */
+  --color-ink-chip: #4A4060;      /* текст белой плашки над H1 */
 
   /* Акцент — кнопки, номера шагов, иконки выгод */
-  --color-accent: #5B3FD9;
-  --color-accent-hover: #4329B8;
+  --color-accent: #8246DF;
+  --color-accent-hover: #6D32C9;
+
+  /* Оранжевый — второй акцент образца, пока не используется */
+  --color-orange: #FCA41E;
 
   /* Коралловый — блок «Проблема», аватар Анны */
   --color-coral-50: #FFF4F0;
@@ -52,8 +58,8 @@
   --shadow-step-lg: 0 10px 30px rgb(30 24 56 / 0.06);
 
   /* Трекинг заголовков */
-  --tracking-h1: -0.035em;
-  --tracking-h1-lg: -0.04em;
-  --tracking-h2: -0.03em;
-  --tracking-h3: -0.02em;
+  --tracking-h1: -0.02em;
+  --tracking-h1-lg: -0.025em;
+  --tracking-h2: -0.015em;
+  --tracking-h3: -0.01em;
 }
